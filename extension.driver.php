@@ -47,28 +47,9 @@
 		}
 		
 	public function collect_data($context)
-		{	
-			$post_id = $_POST['fields']['pointer'];
+		{
+			$id = $_POST['fields']['id'];
 			$entry_id = $context['entry']->get('id');
-			
-			$entryManager = new EntryManager(Symphony::Engine());
-			$sectionManager = new SectionManager(Symphony::Engine());
-						
-			$entry = $entryManager->fetchEntrySectionID($post_id);
-			$section = $sectionManager->fetch($entry)->fetchFieldsSchema();		
-						
-			foreach($section as $key => $value){
-				for($i = 0; $i < count($value); $i++){
-					if ($value[type] == 'subsectionmanager' && $value[element_name] == 'commentary'){
-						$id = $value[id];
-						break;
-					}
-				}
-			
-			}
-						
-			Symphony::Database()->query(
-				"INSERT INTO `tbl_entries_data_$id` (`id`, `entry_id`, `relation_id`) VALUES (NULL, $post_id, $entry_id)"
-			);
+			Symphony::Database()->query("INSERT INTO tbl_entries_data_104 (id, entry_id, relation_id) VALUES (NULL, $id, $entry_id)");
 		}
 	}
